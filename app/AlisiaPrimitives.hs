@@ -1,0 +1,56 @@
+module AlisiaPrimitives where
+
+import AlisiaBasic
+import AlisiaUnary
+import AlisiaStringPrim
+import AlisiaOtherPrim
+import AlisiaPrimHelper
+
+primitives :: [(String, [LispVal] -> ThrowsError LispVal)]
+primitives = [("+", numericBinop (+))
+             ,("-", numericBinop (-))
+             ,("*", numericBinop (*))
+             ,("/", numericBinop div)
+             ,("mod", numericBinop mod)
+             ,("habagi", numericBinop quot)
+             ,("sisa", numericBinop rem)
+             ,("=", numBoolBinop (==))
+             ,("<", numBoolBinop (<))
+             ,(">", numBoolBinop (>))
+             ,("/=", numBoolBinop (/=))
+             ,(">=", numBoolBinop (>=))
+             ,("<=", numBoolBinop (<=))
+             ,("&&", boolBoolBinop (&&))
+             ,("||", boolBoolBinop (||))
+             ,("string=?", strBoolBinop (==))
+             ,("string<?", strBoolBinop (<))
+             ,("string>?", strBoolBinop (>))
+             ,("string<=?", strBoolBinop (<=))
+             ,("string>=?", strBoolBinop (>=))
+             ,("string-ci=?", strBoolBinop (ci_help (==)))
+             ,("string-ci<?", strBoolBinop (ci_help (<)))
+             ,("string-ci>?", strBoolBinop (ci_help (>)))
+             ,("string-ci<=?", strBoolBinop (ci_help (<=)))
+             ,("string-ci>=?", strBoolBinop (ci_help (>=)))
+             ,("negasi", unaryOp not')
+             ,("bool?", unaryOp boolP)
+             ,("lis?", unaryOp listP)
+             ,("simbol?", unaryOp symbolP)
+             ,("kara?", unaryOp charP)
+             ,("string?", unaryOp stringP)
+             ,("vektor?", unaryOp vectorP)
+             ,("simbol->string", unaryOp symbol2string)
+             ,("string->simbol", unaryOp string2symbol)
+             ,("car", car)
+             ,("cdr", cdr)
+             ,("kons", cons)
+             ,("eqv?", eqv)
+             ,("eq?", eqv)
+             ,("equal?", equal)
+             ,("make-string", make_string)
+             ,("string", create_string)
+             ,("string-length", string_length)
+             ,("string-ref", char_at)
+             ,("substring", substring)
+             ,("string-append", string_append)
+             ]
