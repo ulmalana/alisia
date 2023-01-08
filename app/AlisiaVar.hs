@@ -13,7 +13,7 @@ instance Error LispError where
 getVar :: Env -> String -> IOThrowsError LispVal
 getVar envRef var = do
     env <- liftIO $ readIORef envRef
-    maybe (throwError $ UnboundVar "Galat: Variabel masih belum terikat." var)
+    maybe (throwError $ UnboundVar "Galat: Variabel masih belum terikat" var)
           (liftIO . readIORef)
           (lookup var env)
 

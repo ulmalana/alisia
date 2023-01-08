@@ -73,7 +73,7 @@ evalConds :: Env -> [LispVal] -> IOThrowsError LispVal
 evalConds env (List (Atom "lain" : xs) : []) = evalCondElse env xs
 evalConds _ [] = throwError ExpectCondClauses
 evalConds env (List clause : cs) = evalCondClause env clause cs
-evalConds _ badClauses = throwError $ TypeMismatch "cond clauses" $ List badClauses
+evalConds _ badClauses = throwError $ TypeMismatch "klausa cabang" $ List badClauses
 
 evalCondClause env (test : xs) rest = do
     result <- eval env test
@@ -149,15 +149,15 @@ apply (Func params varargs body closure) args =
 
 
 ioPrimitives :: [(String, [LispVal] -> IOThrowsError LispVal)]
-ioPrimitives = [("apply", applyProc),
-               ("open-input-file", makePort ReadMode),
-               ("open-output-file", makePort WriteMode),
-               ("close-input-port", closePort),
-               ("close-output-port", closePort),
+ioPrimitives = [("terapkan", applyProc),
+               ("buka-berkas-input", makePort ReadMode),
+               ("buka-berkas-output", makePort WriteMode),
+               ("tutup--port-input", closePort),
+               ("tutup-port-output", closePort),
                ("baca", readProc),
                ("tulis", writeProc),
-               ("read-contents", readContents),
-               ("read-all", readAll)]
+               ("baca-konten", readContents),
+               ("baca-semua", readAll)]
 
 applyProc :: [LispVal] -> IOThrowsError LispVal
 applyProc [func, List args] = apply func args

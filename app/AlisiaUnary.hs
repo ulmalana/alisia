@@ -27,7 +27,7 @@ vectorP (Vector _) = Bool True
 vectorP _ = Bool False
 
 symbol2string (Atom s) = String s
-symbol2string _ = error "memerlukan atom"
+symbol2string _ = error "Memerlukan atom"
 
 string2symbol (String s) = Atom s
 string2symbol _ = error "Memerlukan string"

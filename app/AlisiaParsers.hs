@@ -137,8 +137,8 @@ parseChar :: Parser LispVal
 parseChar = do string "#\\"
                s <- many1 letter
                return $ case (map toLower s) of
-                      "space" -> Char ' '
-                      "newline" -> Char '\n'
+                      "spasi" -> Char ' '
+                      "turun" -> Char '\n'
                       [x] -> Char x
 
 parseBool :: Parser LispVal

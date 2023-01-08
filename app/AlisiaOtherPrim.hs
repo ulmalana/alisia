@@ -7,14 +7,14 @@ import AlisiaPrimHelper
 car :: [LispVal] -> ThrowsError LispVal
 car [List (x:xs)] = return x
 car [DottedList (x:xs) _] = return x
-car [badArg] = throwError $ TypeMismatch "pair" badArg
+car [badArg] = throwError $ TypeMismatch "pasangan" badArg
 car badArgList = throwError $ NumArgs 1 badArgList
 
 cdr :: [LispVal] -> ThrowsError LispVal
 cdr [List (_:xs)] = return $ List xs
 cdr [DottedList [x] y] = return x
 cdr [DottedList (_:xs) y] = return $ DottedList xs y
-cdr [badArg] = throwError $ TypeMismatch "pair" badArg
+cdr [badArg] = throwError $ TypeMismatch "pasangan" badArg
 cdr badArgList = throwError $ NumArgs 1 badArgList
 
 cons :: [LispVal] -> ThrowsError LispVal

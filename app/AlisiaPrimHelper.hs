@@ -35,7 +35,7 @@ boolBinop _ _ args = throwError $ NumArgs 2 args
 unpackNum :: LispVal -> ThrowsError Integer
 unpackNum (Number n) = return n
 unpackNum (List [n]) = unpackNum n
-unpackNum notNum = throwError $ TypeMismatch "number" notNum
+unpackNum notNum = throwError $ TypeMismatch "angka" notNum
 
 unpackStr :: LispVal -> ThrowsError String
 unpackStr (String s) = return s
