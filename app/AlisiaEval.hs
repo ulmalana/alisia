@@ -137,16 +137,14 @@ apply (PrimitiveFunc func) args = liftThrows $ func args
 apply (Func params varargs body closure) args =
     if num params /= num args && varargs == Nothing
        then throwError $ NumArgs (num params) args
-       else (liftIO $ bindVars closure $ zip params args) >>=
-            bindVarArgs varargs >>=
-            evalBody
+       else (liftIO $ bindVars closure $ zip params args) >>= bindVarArgs varargs >>= evalBody
     where remainingArgs = drop (length params) args
           num = toInteger . length
           evalBody env = liftM last $ mapM (eval env) body
           bindVarArgs arg env = case arg of
               Just argName -> liftIO $ bindVars env [(argName, List $ remainingArgs)]
               Nothing -> return env
-
+apply (IOFunc func) args = func args
 
 ioPrimitives :: [(String, [LispVal] -> IOThrowsError LispVal)]
 ioPrimitives = [("terapkan", applyProc),

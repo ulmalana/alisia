@@ -1,0 +1,46 @@
+;; not
+(definisi (negasi x)
+    (jika x
+        #salah
+        #benar))
+
+;; null?
+(definisi (nihil? obj)
+    (jika (sama? obj '())
+        #benar
+        #salah))
+
+;; list
+(definisi (lis . objs)
+    objs)
+
+(definisi (id obj)
+    obj)
+
+;; flip
+(definisi (balik fn)
+    (fungsi (arg1 arg2)
+        (fun arg2 arg1)))
+
+(definisi (curry fn arg1)
+    (fungsi (arg)
+        (terapkan fn (kons arg1 (lis arg)))))
+
+(definisi (komposisi f g)
+    (fungsi (arg)
+        (f (terapkan g arg))))
+
+(definisi nol?
+    (curry = 0))
+
+(definisi positif?
+    (curry < 0))
+
+(definisi negatif?
+    (curry > 0))
+
+(definisi (ganjil? angka)
+    (= (mod angka 2) 1))
+
+(definisi (genap? angka)
+    (= (mod angka 2) 0))
