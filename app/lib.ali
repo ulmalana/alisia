@@ -20,9 +20,9 @@
 ;; flip
 (definisi (balik fn)
     (fungsi (arg1 arg2)
-        (fun arg2 arg1)))
+        (fn arg2 arg1)))
 
-(definisi (curry fn arg1)
+(definisi (parsial fn arg1)
     (fungsi (arg)
         (terapkan fn (kons arg1 (lis arg)))))
 
@@ -31,16 +31,70 @@
         (f (terapkan g arg))))
 
 (definisi nol?
-    (curry = 0))
+    (parsial = 0))
 
 (definisi positif?
-    (curry < 0))
+    (parsial < 0))
 
 (definisi negatif?
-    (curry > 0))
+    (parsial > 0))
 
 (definisi (ganjil? angka)
     (= (mod angka 2) 1))
 
 (definisi (genap? angka)
     (= (mod angka 2) 0))
+
+(definisi (lipat-ka fn akumulator lis)
+    (jika (nihil? lis)
+        akumulator
+        (fn (kepala lis) (lipat-ka fn akumulator (badan lis)))))
+
+(definisi (lipat-ki fn akumulator lis)
+    (jika (nihil? lis)
+        akumulator
+        (lipat-ki fn (fn akumulator (kepala lis)) (badan lis))))
+
+(definisi lipat lipat-ki)
+(definisi rangkum lipat)
+
+(definisi (uraikan fn init pred)
+    (jika (pred init)
+        (kons init '())
+        (kons init (uraikan fn (fn init) pred))))
+
+(definisi (jumlahkan . lis)
+    (lipat + 0 lis))
+
+(definisi (kalikan . lis)
+    (lipat * 1 lis))
+
+(definisi (dan . lis)
+    (lipat && #benar lis))
+
+(definisi (atau . lis)
+    (lipat || #salah lis))
+
+(definisi (maksimum lis)
+    (lipat (fungsi (n-lama n-baru)
+                (jika (> n-lama n-baru)
+                    n-lama 
+                    n-baru))
+            (kepala lis)
+            (badan lis)))
+
+(definisi (minimum lis)
+    (lipat (fungsi (n-lama n-baru)
+                (jika (< n-lama n-baru)
+                    n-lama 
+                    n-baru))
+            (kepala lis)
+            (badan lis)))
+
+(definisi (panjang lis)
+    (lipat (fungsi (x y) (+ x 1))
+            0
+            lis))
+
+(definisi (putar-balik lis)
+    (lipat (balik kons) '() lis))
