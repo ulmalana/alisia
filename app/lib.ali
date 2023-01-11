@@ -98,3 +98,36 @@
 
 (definisi (putar-balik lis)
     (lipat (balik kons) '() lis))
+
+(definisi (mem-helper pred op)
+    (fungsi (akumulator lanjutan)
+        (jika (dan (negasi akumulator)
+                    (pred (op lanjutan)))
+                lanjutan
+                akumulator)))
+
+(definisi (memq obj lis)
+    (lipat (mem-helper (parsial sama? obj) id) #salah lis))
+
+;; (definisi (anggota obj lis)
+;;    (lipat (mem-helper (parsial ekual? obj) id) #salah lis))
+
+;; (definisi (assq obj lis)
+;;    (lipat (mem-helper (parsial sama? obj) kepala) #salah lis))
+
+(definisi (assoc obj lis)
+    (lipat (mem-helper (parsial ekual? obj) kepala) #salah lis))
+
+(definisi (map fn lis)
+    (lipat-ka (fungsi (x y)
+                (kons (fn x) y))
+                '()
+                lis))    
+
+(definisi (filter pred lis)
+    (lipat-ka (fungsi (x y)
+                (jika (pred x)
+                    (kons x y)
+                    y))
+                '()
+                lis))

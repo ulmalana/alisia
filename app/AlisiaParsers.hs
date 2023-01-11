@@ -37,7 +37,7 @@ parseExpr = parseComment
 
 parseComment :: Parser LispVal
 parseComment = do many1 (char ';')
-                  many1 (letter <|> digit <|> symbol <|> char ' ')
+                  many1 (letter <|> digit <|> symbol <|> char ' ' <|> oneOf "()#")
                   -- (char '\n')
                   return Comment
 
