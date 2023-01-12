@@ -15,8 +15,8 @@ runOne args = do
   (runIOThrows $ liftM show $ eval env (List [Atom "muat", String (args !! 0)])) >>= hPutStrLn stderr
 
 runRepl :: IO ()
-runRepl = putStrLn "Halo!\nAlisia 0.0.1" >> primitiveBindings >>= until_ (== "keluar") (readPrompt "Alisia |-> ") . evalAndPrint
-
+runRepl = do
+  putStrLn "Halo!\nAlisia 0.2.1" >> primitiveBindings >>= until_ (== "keluar") (readPrompt "Alisia |-> ") . evalAndPrint
 
 flushStr :: String -> IO ()
 flushStr s = putStr s >> hFlush stdout

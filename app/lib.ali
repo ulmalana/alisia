@@ -109,8 +109,8 @@
 (definisi (memq obj lis)
     (lipat (mem-helper (parsial sama? obj) id) #salah lis))
 
-;; (definisi (anggota obj lis)
-;;    (lipat (mem-helper (parsial ekual? obj) id) #salah lis))
+(definisi (anggota obj lis)
+    (lipat (mem-helper (parsial ekual? obj) id) #salah lis))
 
 ;; (definisi (assq obj lis)
 ;;    (lipat (mem-helper (parsial sama? obj) kepala) #salah lis))
@@ -131,3 +131,9 @@
                     y))
                 '()
                 lis))
+
+(definisi (ink n)
+    (+ n 1))
+
+(definisi (dek n)
+    (- n 1))    
