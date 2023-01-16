@@ -22,7 +22,8 @@ eval env val@(Ratio _) = return val
 eval env val@(Bool _) = return val
 eval env (Atom id) = getVar env id
 eval env (List [Atom "kutip", val]) = return val
-eval env (List [Atom "tampilkan", val]) = return val
+eval env (List [Atom "tampilkan", val]) = eval env val
+eval env (List (Atom "tampilkan" : xs)) = liftM head $ mapM (eval env) xs -- make this to walk on every arg, not the first arg
 eval env (List [Atom "jika", pred, conseq, alt]) = do
     result <- eval env pred
     case result of

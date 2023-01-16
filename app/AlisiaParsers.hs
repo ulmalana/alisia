@@ -75,7 +75,13 @@ parseNumber :: Parser LispVal
 parseNumber = parsePlainNumber <|> parseRadixNumber
 
 parsePlainNumber :: Parser LispVal
-parsePlainNumber = many1 digit >>= return . Number . read
+parsePlainNumber = parseNegativeNumber <|> parsePositiveNumber
+
+parseNegativeNumber :: Parser LispVal
+parseNegativeNumber = char '-' >> many1 digit >>= return . Number . negate . read
+
+parsePositiveNumber :: Parser LispVal
+parsePositiveNumber = many1 digit >>= return . Number . read
 
 parseRadixNumber :: Parser LispVal
 parseRadixNumber = char '#' >> 
@@ -185,7 +191,7 @@ escapedChars = do
                     't'  -> '\t'
 
 symbol :: Parser Char
-symbol = oneOf "!$%&|*+-/:<=>?@^_~"
+symbol = oneOf "!$%&|*+/:<=>?@^_~"
 
 spaces :: Parser ()
 spaces = skipMany1 space
